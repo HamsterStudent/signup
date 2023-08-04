@@ -10,6 +10,8 @@ interface IError {
   [key: string]: string | boolean;
 }
 
+type TMessageCallback = (current: IError, message: string | boolean) => IError;
+
 const SignupInput = ({ inputName }: IInput) => {
   const [isError, setIsError] = useState<IError>({
     email: false,
@@ -31,11 +33,11 @@ const SignupInput = ({ inputName }: IInput) => {
 
   // 정규식
   const blank = /[\s]/g;
-  const special = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+  const special = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
   const emailPattern =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-  const messageCallback = (current: IError, message: string | boolean) => {
+  const messageCallback: TMessageCallback = (current, message) => {
     let newCondition = { ...current };
     newCondition[inputName] = message;
     return newCondition;
@@ -95,6 +97,7 @@ const SignupInput = ({ inputName }: IInput) => {
           return newCondition;
         });
       }
+
       if (special.test(value)) {
         setPasswordError((current) => {
           let newCondition = { ...current };
@@ -143,7 +146,7 @@ const SignupInput = ({ inputName }: IInput) => {
           </p>
           <p>
             <span>{passwordError.special ? "☘️" : "🍂"}</span>
-            특수문자를 입력하세요
+            특수문자를 2자 이상 입력하세요
           </p>
         </div>
       ) : (
