@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+
 interface IUserInfo {
   [key: string]: string;
 }

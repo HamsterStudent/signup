@@ -57,6 +57,7 @@
     "jest-environment-jsdom": "^29.6.2",
     "jest-jasmine2": "^29.6.2",
     "jest-svg-transformer": "^1.0.0",
+    "react-refresh": "^0.11.0",
     "react-test-renderer": "^18.2.0"
   },
   "jest": {

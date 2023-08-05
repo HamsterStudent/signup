@@ -1,6 +1,22 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { userInfoAtom } from "../atom";
+import { styled } from "styled-components";
+
+const Input = styled.input`
+  display: block;
+  height: 30px;
+  text-indent: 10px;
+  margin: 10px 0;
+  border: 0.7px solid;
+  border-radius: 15px;
+  :last-child {
+    width: 150px;
+    text-indent: 0;
+    text-align: center;
+    margin: 10px auto;
+  }
+`;
 
 interface IInput {
   inputName: string;
@@ -13,6 +29,7 @@ interface IError {
 type TMessageCallback = (current: IError, message: string | boolean) => IError;
 
 const SignupInput = ({ inputName }: IInput) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const [isError, setIsError] = useState<IError>({
     email: false,
     id: false,
@@ -29,16 +46,15 @@ const SignupInput = ({ inputName }: IInput) => {
     lengthCorrect: false,
     special: false,
   });
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   // 정규식
   const blank = /[\s]/g;
-  const special = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/g;
+  const special = /[{}[\]/?.,;:|)*~`!^\-+<>@#$%&\\=('"]/g;
   const emailPattern =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
   const messageCallback: TMessageCallback = (current, message) => {
-    let newCondition = { ...current };
+    const newCondition = { ...current };
     newCondition[inputName] = message;
     return newCondition;
   };
@@ -86,13 +102,13 @@ const SignupInput = ({ inputName }: IInput) => {
     } else if (name === "password") {
       if (value && value.length > 8) {
         setPasswordError((current) => {
-          let newCondition = { ...current };
+          const newCondition = { ...current };
           newCondition.lengthCorrect = true;
           return newCondition;
         });
       } else {
         setPasswordError((current) => {
-          let newCondition = { ...current };
+          const newCondition = { ...current };
           newCondition.lengthCorrect = false;
           return newCondition;
         });
@@ -100,13 +116,13 @@ const SignupInput = ({ inputName }: IInput) => {
 
       if (special.test(value)) {
         setPasswordError((current) => {
-          let newCondition = { ...current };
+          const newCondition = { ...current };
           newCondition.special = true;
           return newCondition;
         });
       } else {
         setPasswordError((current) => {
-          let newCondition = { ...current };
+          const newCondition = { ...current };
           newCondition.special = false;
           return newCondition;
         });
@@ -132,7 +148,7 @@ const SignupInput = ({ inputName }: IInput) => {
 
   return (
     <div>
-      <input
+      <Input
         name={inputName}
         placeholder={inputName}
         value={userInfo[inputName]}

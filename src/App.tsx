@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import SignupInput from "./components/SignupInput";
+import Form from "./components/Form";
 
 const Background = styled.div`
   width: 100vw;
@@ -26,22 +25,6 @@ const ContentsWrap = styled.div`
     text-align: center;
     margin-bottom: 10px;
   }
-  form {
-  }
-  input {
-    display: block;
-    height: 30px;
-    text-indent: 10px;
-    margin: 10px 0;
-    border: 0.7px solid;
-    border-radius: 15px;
-  }
-  input:last-child {
-    width: 150px;
-    text-indent: 0;
-    text-align: center;
-    margin: 10px auto;
-  }
   p {
     height: 15px;
     font-size: 12px;
@@ -56,23 +39,13 @@ const FormWrap = styled.div`
 `;
 
 function App() {
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="App">
       <Background>
         <ContentsWrap>
           <h2>SIGN UP</h2>
           <FormWrap>
-            <form onSubmit={onSubmit}>
-              <SignupInput inputName={"email"} />
-              <SignupInput inputName={"id"} />
-              <SignupInput inputName={"password"} />
-              <SignupInput inputName={"passwordConfirm"} />
-              <input type="submit" value={"회원가입"} />
-            </form>
+            <Form />
           </FormWrap>
         </ContentsWrap>
       </Background>

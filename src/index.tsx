@@ -72,10 +72,10 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <RecoilRoot>
-    <React.StrictMode>
-      <GlobalStyle />
+  <React.StrictMode>
+    <RecoilRoot>
       <App />
-    </React.StrictMode>
-  </RecoilRoot>,
+    </RecoilRoot>
+    <GlobalStyle />,
+  </React.StrictMode>,
 );
